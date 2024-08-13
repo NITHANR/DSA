@@ -97,6 +97,35 @@ public:
     //     printHelper(root);
     // }
 
+    void preOrder(Treenode* r){
+        if(r==NULL){
+            return;
+        }
+        cout<<r->value<<" ";
+        preOrder(r->left);
+        preOrder(r->right);
+
+    }
+
+    // void preOrderPrint(){
+    //     preOrderHelper(root);
+    // }
+
+    void inOrder(Treenode * r){
+        if(r==NULL) return;
+        inOrder(r->left);
+        cout<<r->value<<" ";
+        inOrder(r->right);
+    }
+
+    void postOrder(Treenode* r){
+        if(r==NULL) return;
+        postOrder(r->left);
+        postOrder(r->right);
+        cout<<r->value<<" ";
+    }
+
+
     void print2D(Treenode* node,int space){
         if(node==NULL){
             return;
@@ -155,7 +184,18 @@ int main(){
     
     case 4:
         cout<<"Print Tree"<<endl;
+        cout<<"Tree in 2D 90deg:"<<endl;
         bst.print2D(bst.root,5);
+        cout<<endl;
+        cout<<"Tree in PreOrder:"<<endl;
+        bst.preOrder(bst.root);
+        cout<<endl;
+        cout<<"Tree in InOrder:"<<endl;
+        bst.inOrder(bst.root);
+        cout<<endl;
+        cout<<"Tree in PostOrder:"<<endl;
+        bst.postOrder(bst.root);
+        cout<<endl;
         break;
 
     case 5:
