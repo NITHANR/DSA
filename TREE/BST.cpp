@@ -130,6 +130,7 @@ public:
         if(node==NULL){
             return;
         }
+        
         space+=SPACE;
         print2D(node->right,space);
         cout<<endl;
@@ -140,6 +141,41 @@ public:
         print2D(node->left,space);
 
     }
+
+    // Treenode* search(int val){   ///Iterative search
+    //     if(root==NULL){
+    //         return root;
+    //     }
+    //     else{
+    //         Treenode* temp = root;
+    //         while(temp){
+    //             if(temp->value==val){
+    //                 break;
+    //             }
+    //             if(temp->value<val){
+    //                 temp=temp->right;
+    //             }
+    //             else{
+    //                 temp=temp->right;
+    //             }
+    //         }
+    //         return temp;
+
+    //     }
+    // }
+
+    Treenode* search(Treenode* r,int val){
+        if(r==NULL || r->value==val){
+            return r;
+        }
+        else if(r->value<val){
+           return search(r->right,val);
+        }
+        else{
+           return search(r->left,val);
+        }
+    }
+
 
 };
 
@@ -177,6 +213,15 @@ int main(){
         break;
 
     case 2:
+        cout<<"Search"<<endl;
+        cout<<"Enter the value to search"<<endl;
+        cin>>val;
+        if(bst.search(bst.root,val)){
+            cout<<"Found"<<endl;
+        }
+        else{
+            cout<<"Value not found"<<endl;
+        }
         break;
 
     case 3:
