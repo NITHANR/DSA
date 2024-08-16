@@ -176,6 +176,16 @@ public:
         }
     }
 
+    int height(Treenode* r){
+        if(r==NULL) return -1;
+        else{
+            int left = height(r->left);
+            int right = height(r->right);
+            if(left>right) return left+1;
+            else return right+1;
+        }
+    }
+
 
 };
 
@@ -194,7 +204,8 @@ int main(){
     cout<<"2.SearchNode"<<endl;
     cout<<"3.DeleteNode"<<endl;
     cout<<"4.Print BST tree"<<endl;
-    cout<<"5.Clear Screen"<<endl;
+    cout<<"5.Height of Tree"<<endl;
+    cout<<"6.Clear Screen"<<endl;
     cout<<"0.Exit Program"<<endl;
     
     cin>>option;
@@ -244,6 +255,13 @@ int main(){
         break;
 
     case 5:
+        cout<<"Tree Height"<<endl;
+        int h;
+        h= bst.height(bst.root);
+        cout<<"The height of tree is "<<h<<endl;
+        break;
+    
+    case 6:
         break;
 
     default:
