@@ -186,6 +186,31 @@ public:
         }
     }
 
+    void printLevelOrderBST(Treenode * r){
+        if(r==NULL){
+            return ;
+        }
+        else{
+            int h = height(r);
+            for(int i=0;i<=h;i++){
+                printLevelOrder(r,i);
+            }
+        }
+    }
+
+    void printLevelOrder(Treenode* r,int n){
+        if(r==NULL){
+            return;
+        }
+        else if(n==0){
+            cout<<r->value<<" ";
+        }
+        else{
+            printLevelOrder(r->left,n-1);
+            printLevelOrder(r->right,n-1);
+        }
+    }
+
 
 };
 
@@ -259,6 +284,9 @@ int main(){
         int h;
         h= bst.height(bst.root);
         cout<<"The height of tree is "<<h<<endl;
+
+        bst.printLevelOrderBST(bst.root);
+
         break;
     
     case 6:
