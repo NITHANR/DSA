@@ -211,6 +211,46 @@ public:
         }
     }
 
+    // min right node
+    Treenode* minRightNode(Treenode* r){
+        Treenode* ptr = r;
+        while(ptr->left!=NULL){
+            ptr=ptr->left;
+        }
+        return ptr;
+    }
+
+    // Delete a node
+    Treenode* deleteNode(Treenode* r,int val){
+        if(r==NULL){
+            return r;
+        }
+        else if(val < (r->value)){
+            r->left = deleteNode(r->left,val);
+        }
+        else if(val>(r->value)){
+            r->right = deleteNode(r->right,val);
+        }
+        else{
+            if(r->left==NULL){
+                Treenode* temp = r->right;
+                delete r;
+                return temp;
+            }
+            else if(r->right==NULL){
+                Treenode* temp  = r->left;
+                delete r;
+                return temp;
+            }
+            else{
+                Treenode* minRight = minRightNode(r->right);
+                r->value=minRight->value;
+                r->right=deleteNode(r->right,minRight->value);
+            }
+        }
+        return r;
+    }
+
 
 };
 
@@ -261,6 +301,16 @@ int main(){
         break;
 
     case 3:
+        cout<<"DeleteNode"<<endl;
+        cout<<"Enter the node to be deleted ";
+        cin>>val;
+        if(bst.search(bst.root,val)){
+            bst.deleteNode(bst.root,val);
+            cout<<"Node deleted"<<endl;
+        }
+        else{
+            cout<<"Node not found"<<endl;
+        }
         break;
     
     case 4:
@@ -290,6 +340,7 @@ int main(){
         break;
     
     case 6:
+        system("cls");
         break;
 
     default:
