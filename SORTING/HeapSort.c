@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void heapSort(int *arr,int size);   // Max heap
+void heapSort(int *arr,int size);   // Min heap
 void heapify(int *arr,int par,int li);
 void swap(int* a,int* b);
 
@@ -29,6 +29,19 @@ void heapSort(int *arr,int size){
     for(int cur_par = par_c;cur_par>=0;cur_par--){
         heapify(arr,cur_par,last_in);
     }
+    int temp;
+    temp = arr [ 0 ];
+    arr [ 0 ] = arr [ last_in ];
+    arr [ last_in ] = temp;
+    last_in -=1;
+    while ( last_in )
+    {
+    heapify ( arr, 0, last_in);
+    temp = arr [ 0 ];
+    arr [ 0 ] = arr [ last_in ];
+    arr [ last_in ] = temp;
+    last_in -=1;
+    }
 
 }
 
@@ -41,16 +54,17 @@ void heapify(int *arr,int par,int li){
     if(left==li){
         if(arr[left]>arr[par]){
             swap(&arr[left],&arr[par]); // only one child -> left child is the last ind and 
-        }                               // the value in left gt par so swap
+        }        
+        return;                       // the value in left gt par so swap
     }
     if((arr[left]>arr[par]) || (arr[right]>arr[par])){
-        if(arr[right]>arr[left]){
-            swap(&arr[right],&arr[par]);
-            heapify(arr,right,li);
-        }
-        else{
+        if(arr[right]<arr[left]){
             swap(&arr[left],&arr[par]);
             heapify(arr,left,li);
+        }
+        else{
+            swap(&arr[right],&arr[par]);
+            heapify(arr,right,li);
         }
     }
 
