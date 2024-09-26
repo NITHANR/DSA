@@ -111,9 +111,120 @@ public:
         return r;
     }
 
+    void print2D(Treenode* node,int space){
+        if(node==NULL){
+            return;
+        }
+        
+        space+=SPACE;
+        print2D(node->right,space);
+        cout<<endl;
+        for(int i= SPACE ; (i<space);i++){
+            cout<<" ";
+        }
+        cout<<node->value<<endl;
+        print2D(node->left,space);
+
+    }
+
+     Treenode* search(Treenode* r,int val){
+        if(r==NULL || r->value==val){
+            return r;
+        }
+        else if(r->value<val){
+           return search(r->right,val);
+        }
+        else{
+           return search(r->left,val);
+        }
+    }
+
+
 };
 
 int main(){
     AVLTree obj;
+    int option;
+    int val;
+    do{
+
+    cout<<"What option do you want to perform? Selection option Number. Enter 0 to exit."<<endl;
+    cout<<"1.InserNode"<<endl;
+    cout<<"2.SearchNode"<<endl;
+    cout<<"3.DeleteNode"<<endl;
+    cout<<"4.Print BST tree"<<endl;
+    cout<<"5.Height of Tree"<<endl;
+    cout<<"6.Clear Screen"<<endl;
+    cout<<"0.Exit Program"<<endl;
+    
+    cin>>option;
+
+    Treenode* n = new Treenode();
+
+
+    switch (option)
+    {
+    case 1:
+        cout<<"Insert"<<endl;
+        cout<<"Enter the value to br inserted"<<endl;
+        cin>>val;
+        n->value=val;
+        obj.root=obj.insert(obj.root,n);
+        break;
+
+    case 2:
+        cout<<"Search"<<endl;
+        cout<<"Enter the value to search"<<endl;
+        cin>>val;
+        if(obj.search(obj.root,val)){
+            cout<<"Found"<<endl;
+        }
+        else{
+            cout<<"Value not found"<<endl;
+        }
+        break;
+
+    case 3:
+        // cout<<"DeleteNode"<<endl;
+        // cout<<"Enter the node to be deleted ";
+        // cin>>val;
+        // if(bst.search(bst.root,val)){
+        //     bst.deleteNode(bst.root,val);
+        //     cout<<"Node deleted"<<endl;
+        // }
+        // else{
+        //     cout<<"Node not found"<<endl;
+        // }
+        break;
+    
+    case 4:
+        cout<<"Print Tree"<<endl;
+        cout<<"Tree in 2D 90deg:"<<endl;
+        obj.print2D(obj.root,5);
+        cout<<endl;
+        break;
+
+    case 5:
+        // cout<<"Tree Height"<<endl;
+        // int h;
+        // h= obj.height(obj.root);
+        // cout<<"The height of tree is "<<h<<endl;
+
+        // obj.printLevelOrderBST(obj.root);
+
+        break;
+    
+    case 6:
+        system("cls");
+        break;
+
+    default:
+        cout<<"Enter proper option number."<<endl;
+        break;
+    }
+
+
+   }while(option); // option!=0
+
 
 }
