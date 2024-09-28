@@ -139,6 +139,58 @@ public:
         }
     }
 
+    Treenode* minValueNode(Treenode* r){
+        Treenode* temp=r;
+        while(temp->left!=NULL){
+            temp=temp->left;
+        }
+        return temp;
+    }
+
+    Treenode* deleteNode(Treenode* r,int v){
+        if(r==NULL) return NULL;
+        else if(v>r->value){
+            r->right=deleteNode(r->right,v);
+        }
+        else if(v<r->value){
+            r->left=deleteNode(r->left,v);
+        }
+        else{
+            if(r->left==NULL){
+                Treenode* temp = r->right;
+                delete r;
+                return temp;
+            }
+            else if(r->right==NULL){
+                Treenode* temp = r->left;
+                delete r;
+                return temp;
+            }
+            else{
+                Treenode* temp = minValueNode(r->right);
+                r->value=temp->value;
+                r->right=deleteNode(r->right,temp->value);
+            }
+        }
+        int bf = getBalanceFactor(r);
+
+        if(bf==2 && getBalanceFactor(r->left)>=0){
+            return rightRotate(r);
+        }
+        else if(bf==2 && getBalanceFactor(r->left)==-1){
+            r->left=leftRotate(r->left);
+            return rightRotate(r);
+        }
+        else if(bf==-2 && getBalanceFactor(r->right)<=0){
+            return leftRotate(r);
+        }
+        else if(bf==-2 && getBalanceFactor(r->right)==1){
+            r->right=rightRotate(r->right);
+            return leftRotate(r);
+        }
+        return r;
+    }
+
 
 };
 
@@ -185,16 +237,16 @@ int main(){
         break;
 
     case 3:
-        // cout<<"DeleteNode"<<endl;
-        // cout<<"Enter the node to be deleted ";
-        // cin>>val;
-        // if(bst.search(bst.root,val)){
-        //     bst.deleteNode(bst.root,val);
-        //     cout<<"Node deleted"<<endl;
-        // }
-        // else{
-        //     cout<<"Node not found"<<endl;
-        // }
+        cout<<"DeleteNode"<<endl;
+        cout<<"Enter the node to be deleted ";
+        cin>>val;
+        if(obj.search(obj.root,val)){
+            obj.deleteNode(obj.root,val);
+            cout<<"Node deleted"<<endl;
+        }
+        else{
+            cout<<"Node not found"<<endl;
+        }
         break;
     
     case 4:
